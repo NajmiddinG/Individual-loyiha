@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load my_functions %}
+{% block content %}
+<!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center my-5 py-5">
+            <h1 class="text-white display-1 mb-5">Light star</h1>
+            <h1 class="text-white mt-4 mb-4">Bizning kurslar orqali kelejak kasblarini o'rganing, sertifikatlarga ega bo'ling va maqsadlaringizga erishing.</h1>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100" src="{% static 'img/about2.jpeg' %}" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="section-title position-relative mb-4">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">O'zimiz haqimizda</h6>
+                    </div>
+                    <p style="font-size: 20px;">
+                        2020-yil 12-fevral — «Light star»ga asos solingan kun. <br>
+                        Markazimiz o‘z faoliyatini grafik dizayn yo‘nalishi, <br>
+                        arab va ingliz tillari bilan boshlagan. <br>
+                        Bugun esa markaz faoliyati bir necha barobar kengayib, <br>
+                        uchta yirik filialda darslar muntazam olib borilmoqda.<br>
+                        Quvonarlisi, markazimiz bitiruvchilari yurtimizning turli xil tashkilotlarida, <br>
+                        IT-korxonalarda oʻz oʻrnini topdi.<br>
+                        Maqsadimiz — bir necha yillardan soʻng ham bosib oʻtilgan yoʻlning <br>
+                        qiymati va qimmati qalblarimizni faqat faxr va shukronaga toʻldirsin!<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Courses Start -->
+    <div class="container-fluid px-0 py-5">
+        <div class="row mx-0 justify-content-center pt-5">
+            <div class="col-lg-6">
+                <div class="section-title text-center position-relative mb-4">
+                    <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Bizning kurslarimiz</h6>
+                    <h1 class="display-4">Kurslarimizga qo'shiling</h1>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel courses-carousel container-fluid">
+            {% if courses %}
+            {% for course in courses %}
+            <div class="courses-item position-relative">
+                <img class="img-fluid" src="{{ MEDIA_URL }}{{ course.image.url }}" alt="{{ course.image.name }}">
+                <div class="courses-text">
+                    <h4 class="text-center text-white px-3">{{ course.name }}</h4>
+                    <div class="border-top w-100 mt-3">
+                        <div class="d-flex justify-content-between p-4">
+                            <span class="text-white"><i class="fa fa-angle-up"></i> {{ course.level }}</span>
+                            <span class="text-white"><i class="fa fa-coins"></i>{{ course.price|thouthand_seperator }}</span>
+                        </div>
+                    </div>
+                    <div class="w-100 bg-white text-center p-4" >
+                        <a class="btn btn-primary" href="{% url 'detail' id=course.id %}">Course Detail</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row justify-content-center bg-image mx-0 mb-5" id='attend'>
+            <div class="col-lg-6 py-5">
+                <div class="bg-white p-5 my-5">
+                    <h1 class="text-center mb-4">Hozirda barcha kurslarimiz 30% chigirmaga ega. Vaqtni boy bermang</h1>
+                    <form action="{% url 'request_to_training' %}" method='post'>
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Ismingiz" style="padding: 30px 20px;">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="phone" name="phone" class="form-control bg-light border-0" placeholder="No'meringiz" style="padding: 30px 20px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {% if courses %}
+                                    <select class="custom-select bg-light border-0 px-3" name="selected_course" style="height: 60px;">
+                                        <option selected >Kursni tanlang</option>
+                                        {% for course in courses %}
+                                        <option value="{{ course.id }}">{{ course.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary btn-block" type="submit" style="height: 60px;">Yuborish</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Courses End -->
+
+
+    <!-- Team Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative mb-5">
+                <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">O'qituvchilar</h6>
+                <h1 class="display-4">Bizning o'qituvchilar jamoasi</h1>
+            </div>
+            <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
+            {% if teachers %}
+            {% for teacher in teachers %}
+                <div class="team-item">
+                    <img class="img-fluid w-100" src="{{ MEDIA_URL }}{{ teacher.image.url }}" alt="{{ teacher.image.name }}">
+                    <div class="bg-light text-center p-4">
+                        <h5 class="mb-3">{{ teacher.name }}</h5>
+                        <p class="mb-2">{{ teacher.science }}</p>
+                        <div class="d-flex justify-content-center">
+                            <a class="mx-1 p-1" href="{{ teacher.telegram }}"><i class="fab fa-telegram-plane"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.instagram }}"><i class="fab fa-instagram"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.youtube }}"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
+        <!-- Feature Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-7 mb-5 mb-lg-0">
+                    <div class="section-title position-relative mb-4">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Nega bizni tanlashingiz kerak?</h6>
+                        <h1 class="display-4">Nega bizni tanlashingiz kerak?</h1>
+                    </div>
+                    <p class="mb-4 pb-2">Aliquyam accusam clita nonumy ipsum sit sea clita ipsum clita, ipsum dolores amet voluptua duo dolores et sit ipsum rebum, sadipscing et erat eirmod diam kasd labore clita est. Diam sanctus gubergren sit rebum clita amet.</p>
+                    <div class="d-flex mb-3">
+                        <div class="btn-icon bg-primary mr-4">
+                            <i class="fa fa-2x fa-graduation-cap text-white"></i>
+                        </div>
+                        <div class="mt-n1">
+                            <h4>Malakali ustozlar</h4>
+                            <p>Labore rebum duo est Sit dolore eos sit tempor eos stet, vero vero clita magna kasd no nonumy et eos dolor magna ipsum.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <div class="btn-icon bg-secondary mr-4">
+                            <i class="fa fa-2x fa-certificate text-white"></i>
+                        </div>
+                        <div class="mt-n1">
+                            <h4>Xalqaro sertifikat</h4>
+                            <p>Labore rebum duo est Sit dolore eos sit tempor eos stet, vero vero clita magna kasd no nonumy et eos dolor magna ipsum.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="btn-icon bg-warning mr-4">
+                            <i class="fa fa-2x fa-book-reader text-white"></i>
+                        </div>
+                        <div class="mt-n1">
+                            <h4>Qulay o'qish tizim</h4>
+                            <p class="m-0">Labore rebum duo est Sit dolore eos sit tempor eos stet, vero vero clita magna kasd no nonumy et eos dolor magna ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100" src="{% static 'img/img4444.jpg' %}" style="object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feature Start -->
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="bg-light d-flex flex-column justify-content-center px-5" style="height: 450px;">
+                        <div class="d-flex align-items-center mb-5">
+                            <div class="btn-icon bg-primary mr-4">
+                                <i class="fa fa-2x fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div class="mt-n1">
+                                <h4>Manzilimiz</h4>
+                                <p class="m-0">170 uy, Naymanobod, Andijon, Uzbekiston</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-5">
+                            <div class="btn-icon bg-secondary mr-4">
+                                <i class="fa fa-2x fa-phone-alt text-white"></i>
+                            </div>
+                            <div class="mt-n1">
+                                <h4>Qo'ng'iroq qiling</h4>
+                                <p class="m-0">+998 (99) 766-36-81</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="btn-icon bg-warning mr-4">
+                                <i class="fa fa-2x fa-envelope text-white"></i>
+                            </div>
+                            <div class="mt-n1">
+                                <h4>Email yuboring</h4>
+                                <p class="m-0">najmiddinweb@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="section-title position-relative mb-4">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Yordam kerakmi?</h6>
+                        <h1 class="display-4">Xabar yuboring</h1>
+                    </div>
+                    <div class="contact-form">
+                        <form action="{% url 'request_to_message' %}" method='post'>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <input type="text" class="form-control border-top-0 border-right-0 border-left-0 p-0" name="name" placeholder="Ismingiz" required="required">
+                                </div>
+                                <div class="col-6 form-group">
+                                    <input type="phone" class="form-control border-top-0 border-right-0 border-left-0 p-0" name="phone" placeholder="No'meringiz" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control border-top-0 border-right-0 border-left-0 p-0" name="subject" placeholder="Mavzu" required="required">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control border-top-0 border-right-0 border-left-0 p-0" rows="5" name="message" placeholder="Xabar" required="required"></textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary py-3 px-5" type="submit">Jo'natish</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+{% endblock content %}

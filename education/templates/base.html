@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Light star</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark">
+        <div class="row py-2 px-lg-5">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center text-white" style='font-size: 12px;'>
+                    <small><i class="fa fa-phone-alt mr-2"></i>+998 (99) 766-36-81</small>
+                    <small class="px-3">|</small>
+                    <small><i class="fa fa-envelope mr-2"></i>najmiddinweb@gmail.com</small>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-white px-2" target="_blank" href="https://t.me/Najmiddin_programmer">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a class="text-white px-2" target="_blank" href="https://www.facebook.com/profile.php?id=100079852531044">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-white px-2" target="_blank" href="https://www.linkedin.com/in/najmiddin-giyosiddinov/">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-white px-2" target="_blank" href="https://www.instagram.com/najmiddinweb/">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-white pl-2" target="_blank" href="https://www.youtube.com/channel/UCiGQ-tECS5hO5ILydmIUo7w">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="{% url 'index' %}" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>Light Star</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="{% url 'index' %}" class="nav-item nav-link {% if active == 'index' %}active{%endif%}">Asosiy</a>
+                    <a href="{% url 'about' %}" class="nav-item nav-link {% if active == 'about' %}active{%endif%}">O'zimiz haqimizda</a>
+                    <a href="{% url 'course' %}" class="nav-item nav-link {% if active == 'course' %}active{%endif%}">Kurslar</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle {% if active == 'detail' or active == 'feature' or active == 'team' %}active{%endif%}" data-toggle="dropdown">Yana</a>
+                        <div class="dropdown-menu m-0">
+                            {% if active == 'detail' %}
+                            <a class="dropdown-item active"><b>{{ detail.name }}</b> kursi</a>
+                            {% endif %}
+                            <a href="{% url 'feature' %}" class="dropdown-item {% if active == 'feature' %}active{%endif%}">Bizning xususiyatlarimiz</a>
+                            <a href="{% url 'team' %}" class="dropdown-item {% if active == 'team' %}active{%endif%}">O'qituvchilar</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'contact' %}" class="nav-item nav-link {% if active == 'contact' %}active{%endif%}">Bog'lanish</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+{% if messages %}
+<center>
+<div class="messages" style="weight:100%; margin: 5px;">
+    {% for message in messages %}
+    <div{% if message.tags %} class="alert-{{ message.tags }} center" style="padding:10px; color: white; text-align: center;" {% endif %}>{{ message }}</div>
+    {% endfor %}
+</div>
+</center>
+{% endif %}
+
+{% block content %}
+
+{% endblock content %}
+
+    <!-- Footer Start -->
+    <div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-5" style="margin-top: 90px;">
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-md-6 mb-5">
+                    <a href="{% url 'index' %}" class="navbar-brand">
+                        <h1 class="mt-n2 text-uppercase text-white"><i class="fa fa-book-reader mr-3"></i>Light Star</h1>
+                    </a>
+                    <p class="m-0">Light star o'quv markazi sizni kutmoqda. <br> Biz bilan bog'laning. <br> Yangi texnologiyalarni xorijiy tillarni va <br> bo'shqalarni biz bilan oson o'rganing</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Bog'lanish</h3>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>170 uy Naymanobod, Andijon</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+998 (99) 766-36-81</p>
+                    <p><i class="fa fa-envelope mr-2"></i>najmiddinweb@gmail.com</p>
+                    <div class="d-flex justify-content-start mt-4">
+                        <a class="text-white mr-4" href="https://t.me/Najmiddin_programmer"><i class="fab fa-2x fa-telegram-plane"></i></a>
+                        <a class="text-white mr-4" href="https://www.facebook.com/profile.php?id=100079852531044"><i class="fab fa-2x fa-facebook-f"></i></a>
+                        <a class="text-white mr-4" href="https://www.linkedin.com/in/najmiddin-giyosiddinov/"><i class="fab fa-2x fa-linkedin-in"></i></a>
+                        <a class="text-white" href="https://www.instagram.com/najmiddinweb/"><i class="fab fa-2x fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Bizning kurslarimiz</h3>
+                    {% if courses %}
+                    <div class="d-flex flex-column justify-content-start">
+                        {% for course in courses %}
+                        <a class="text-white-50 mb-2" href="{% url 'detail' id=course.id %}"><i class="fa fa-angle-right mr-2"></i>{{ course.name }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Asosiy bo'limlar</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="{% url 'index' %}"><i class="fa fa-angle-right mr-2"></i>Asosiy</a>
+                        <a class="text-white-50 mb-2" href="{% url 'about' %}"><i class="fa fa-angle-right mr-2"></i>O'zimiz haqimizda</a>
+                        <a class="text-white-50 mb-2" href="{% url 'course' %}"><i class="fa fa-angle-right mr-2"></i>Kurslar</a>
+                        <a class="text-white-50 mb-2" href="{% url 'team' %}"><i class="fa fa-angle-right mr-2"></i>O'qituvchilar</a>
+                        <a class="text-white-50 mb-2" href="{% url 'contact' %}"><i class="fa fa-angle-right mr-2"></i>Bog'lanish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://github.com/NajmiddinG/">Mening profilim</a>
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <p class="m-0"><a class="text-white" href="https://htmlcodex.com">Najmiddin</a> tomonidan yaratildi
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

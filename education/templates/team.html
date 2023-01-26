@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-1">O'qituvchilar</h1>
+            <div class="d-inline-flex text-white mb-5">
+                <p class="m-0 text-uppercase"><a class="text-white" href="{% url 'index' %}">Asosiy</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">O'qituvchilar</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Team Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative mb-5">
+                <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">O'qituvchilar</h6>
+                <h1 class="display-4">O'qituvchilarimiz bilan tanishing</h1>
+            </div>
+            <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
+            {% if teachers %}
+            {% for teacher in teachers %}
+                <div class="team-item">
+                    <img class="img-fluid w-100" src="{{ MEDIA_URL }}{{ teacher.image.url }}" alt="{{ teacher.image.name }}">
+                    <div class="bg-light text-center p-4">
+                        <h5 class="mb-3">{{ teacher.name }}</h5>
+                        <p class="mb-2">{{ teacher.science }}</p>
+                        <div class="d-flex justify-content-center">
+                            <a class="mx-1 p-1" href="{{ teacher.telegram }}"><i class="fab fa-telegram-plane"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.instagram }}"><i class="fab fa-instagram"></i></a>
+                            <a class="mx-1 p-1" href="{{ teacher.youtube }}"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+{% endblock content %}
